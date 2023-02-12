@@ -7,7 +7,6 @@ import NavigationTabBar from './NavigationTabBar';
 import HomeScreen from './tabs/Home/HomeScreen';
 import { StatusBar } from 'react-native';
 import LibraryScreen from './tabs/Library/LibraryScreen';
-import FoldersScreen from './tabs/Folders/FoldersScreen';
 
 const navTheme = {
   ...DefaultTheme,
@@ -41,7 +40,6 @@ export default function MainScreen({ navigation }) {
       >
         <Tab.Screen name='Library' component={LibraryScreen} />
         <Tab.Screen name='Home' component={HomeScreen} />
-        <Tab.Screen name='Folders' component={FoldersScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );
