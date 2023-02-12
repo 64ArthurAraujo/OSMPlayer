@@ -1,13 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import { foldersContainingSongs } from '../../../actions/folder';
 import { importASong, scanForSongs } from '../../../actions/song';
 import Colors from '../../../util/colors';
 import { border, font, globalStyles, padding } from '../../../util/global-styles';
 
 export default function FoldersScreen({ navigation }) {
-  const foldersWithSongs = foldersContainingSongs();
-
   return (
     <View style={globalStyles.root}>
       <View style={globalStyles.header}>
@@ -30,8 +27,8 @@ export default function FoldersScreen({ navigation }) {
       </View>
 
       <ScrollView>
-        {foldersWithSongs.map((folder) => {
-          return <View key={folder.name}></View>;
+        {[]?.map((path) => {
+          return <Text style={globalStyles.uiTextPrimary}></Text>;
         })}
       </ScrollView>
     </View>
