@@ -1,5 +1,6 @@
 import * as FileSystem from 'expo-file-system';
 import { PermissionsAndroid } from 'react-native';
+import { Info, Log } from '../util/logger';
 import {
   endTimer,
   ignoreList,
@@ -19,10 +20,9 @@ export async function readAllSongs() {
 
   startTimer();
   await getSongsOf('file:///storage/emulated/0/');
-  endTimer();
+  endTimer('Scan');
 
-  console.info(`Found ${songsOnDevice.length} songs.`);
-  console.log(songsOnDevice);
+  Info(`Found ${songsOnDevice.length} songs.`);
 
   return songsOnDevice;
 }
@@ -34,7 +34,7 @@ function clearSongsOnDevice() {
 async function getSongsOf(folderPath: string) {
   if (ignoreList.includes(folderPath)) return [];
 
-  console.log(`Listing songs from ${folderPath}`);
+  Log(`Listing songs from ${folderPath}`);
 
   const folder = (await FileSystem.readDirectoryAsync(folderPath)).filter(whoIsNotADotFile) ?? [];
 

@@ -1,6 +1,6 @@
 import { PermissionsAndroid } from 'react-native';
 import { Song } from '../types/song';
-import { isEmptyOrUndefined } from './util/folder-util';
+import { endTimer, isEmptyOrUndefined, startTimer } from './util/folder-util';
 import { readAllSongs } from './folder';
 import uuid from 'react-native-uuid';
 import {
@@ -16,6 +16,7 @@ import {
   createSongsFolder,
   informAndCleanParsingError,
 } from './util/song-parser-util';
+import { Log } from '../util/logger';
 
 const songsFolderPath = documentDirectory + 'songs/';
 
@@ -29,22 +30,38 @@ export async function parsedSongs() {
 
   let songsFolder = await readDirectoryAsync(songsFolderPath);
 
-  if (isEmptyOrUndefined(songsFolder)) {
-    console.log('Starting song parsing...');
+  let mp3Songs = await readAllSongs();
 
-    let mp3Songs = await readAllSongs();
+  if (isEmptyOrUndefined(songsFolder) || mp3Songs.length > songsFolder.length) {
+    Log('Starting song parsing...');
+
+    startTimer();
 
     for (const songPath of mp3Songs) {
-      console.log(`Parsing ${songPath}`);
+      Log(`Parsing ${songPath}`);
       await createMusicFolderFor(songPath);
     }
 
-    console.log('Finished song parsing...');
+    endTimer('Song parsing');
   }
 
-  // console.log('Reading all parsed songs...');
+  Log('Reading all parsed songs...');
 
-  return [] as Song[];
+  songsFolder = await readDirectoryAsync(songsFolderPath); // update again songs folder
+  const songsParsed = [];
+
+  startTimer();
+
+  for (const song of songsFolder) {
+    Log(`Reading /songs/${song}/`);
+
+    let musicInfoString = await readAsStringAsync(`${songsFolderPath}${song}/info.json`);
+    songsParsed.push(JSON.parse(musicInfoString) as Song);
+  }
+
+  endTimer('Song information reading');
+
+  return songsParsed as Song[];
 }
 
 async function createMusicFolderFor(songPath: string) {
@@ -56,6 +73,7 @@ async function createMusicFolderFor(songPath: string) {
     await writeAsStringAsync(
       `${songsFolderPath}${songUUID}/info.json`,
       JSON.stringify({
+        uuid: songUUID,
         title: songName(songPath),
         mp3Path: `${songsFolderPath}${songUUID}/musike.mp3`,
       } as Song)

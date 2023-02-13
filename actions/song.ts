@@ -1,28 +1,29 @@
 import { PermissionsAndroid } from 'react-native';
 import { Song } from '../types/song';
+import { Info } from '../util/logger';
 
 export function lastPlayedSong() {
-  console.info('Function is yet to be implemented');
+  Info('Function is yet to be implemented');
 
   return {} as Song;
 }
 
 export function randomSong() {
-  console.info('Function is yet to be implemented');
+  Info('Function is yet to be implemented');
 
   return {} as Song;
 }
 
 export function songsMarkedAsFavorite() {
-  console.info('Function is yet to be implemented');
+  Info('Function is yet to be implemented');
 
   return [] as Song[];
 }
 
 export function importASong() {
-  console.info('Function is yet to be implemented');
+  Info('Function is yet to be implemented');
 }
 
 export function scanForSongs() {
-  console.info('Function is yet to be implemented');
+  Info('Function is yet to be implemented');
 }
