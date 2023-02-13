@@ -1,10 +1,13 @@
 import * as FileSystem from 'expo-file-system';
+import { Info } from '../../util/logger';
 
 export const ignoreList = [
   'file:///storage/emulated/0/WhatsApp/',
   'file:///storage/emulated/0/Telegram/',
   'file:///storage/emulated/0/Android/',
   'file:///storage/emulated/0/Pictures/',
+  'file:///storage/emulated/0/Alarms/',
+  'file:///storage/emulated/0/Notifications/',
   'file:///storage/emulated/0/games/',
   FileSystem.documentDirectory,
 ];
@@ -44,7 +47,7 @@ export function startTimer() {
   startTime = performance.now();
 }
 
-export function endTimer() {
+export function endTimer(endevour: string) {
   endTime = performance.now();
   var timeDiff = endTime - startTime; //in ms
   // strip the ms
@@ -52,5 +55,5 @@ export function endTimer() {
 
   // get seconds
   var seconds = Math.round(timeDiff);
-  console.info(`Scan completed in ${seconds} seconds`);
+  Info(`${endevour} completed in ${seconds} seconds!`);
 }
