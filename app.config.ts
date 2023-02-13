@@ -7,6 +7,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   android: {
     softwareKeyboardLayoutMode: 'pan',
     package: 'com.a64o.osmplayer',
-    permissions: ['android.permission.READ_EXTERNAL_STORAGE'],
+    permissions: [
+      'android.permission.READ_EXTERNAL_STORAGE',
+      'android.permission.WRITE_EXTERNAL_STORAGE',
+    ],
   },
 });

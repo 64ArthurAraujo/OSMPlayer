@@ -2,6 +2,7 @@ export interface Song {
   title: string;
   artist: string;
   image: string;
-  durationMs: string;
+  durationMs: number;
   durationFormatted: string;
+  mp3Path: string;
 }

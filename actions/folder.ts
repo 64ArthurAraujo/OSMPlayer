@@ -10,10 +10,12 @@ import {
   whoIsNotADotFile,
 } from './util/folder-util';
 
-const songsOnDevice: string[] = [];
+let songsOnDevice: string[] = [];
 
 export async function readAllSongs() {
   await PermissionsAndroid.request('android.permission.READ_EXTERNAL_STORAGE');
+
+  clearSongsOnDevice();
 
   startTimer();
   await getSongsOf('file:///storage/emulated/0/');
@@ -23,6 +25,10 @@ export async function readAllSongs() {
   console.log(songsOnDevice);
 
   return songsOnDevice;
+}
+
+function clearSongsOnDevice() {
+  songsOnDevice = [];
 }
 
 async function getSongsOf(folderPath: string) {

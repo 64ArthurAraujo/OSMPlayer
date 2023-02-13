@@ -6,6 +6,7 @@ export const ignoreList = [
   'file:///storage/emulated/0/Android/',
   'file:///storage/emulated/0/Pictures/',
   'file:///storage/emulated/0/games/',
+  FileSystem.documentDirectory,
 ];
 
 export async function isDirectory(path) {
