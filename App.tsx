@@ -6,6 +6,7 @@ import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { globalStyles } from './util/global-styles';
 import MainScreen from './screens/MainScreen';
+import { HoldMenuProvider } from 'react-native-hold-menu';
 
 const Stack = createNativeStackNavigator();
 
@@ -40,18 +41,20 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer theme={navTheme}>
-      <SafeAreaView style={[globalStyles.root]} onLayout={onLayoutRootView}>
-        <Stack.Navigator initialRouteName={'Main'}>
-          <Stack.Screen
-            name='Main'
-            component={MainScreen}
-            options={{
-              headerShown: false,
-            }}
-          />
-        </Stack.Navigator>
-      </SafeAreaView>
-    </NavigationContainer>
+    <HoldMenuProvider theme='dark'>
+      <NavigationContainer theme={navTheme}>
+        <SafeAreaView style={[globalStyles.root]} onLayout={onLayoutRootView}>
+          <Stack.Navigator initialRouteName={'Main'}>
+            <Stack.Screen
+              name='Main'
+              component={MainScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+          </Stack.Navigator>
+        </SafeAreaView>
+      </NavigationContainer>
+    </HoldMenuProvider>
   );
 }

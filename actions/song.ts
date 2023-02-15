@@ -27,3 +27,11 @@ export function importASong() {
 export function scanForSongs() {
   Info('Function is yet to be implemented');
 }
+
+export function editSong(uuid: string) {
+  Info('Function is yet to be implemented');
+}
+
+export function deleteSong(uuid: string) {
+  Info('Function is yet to be implemented');
+}
